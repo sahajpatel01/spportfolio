@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sahaj Patel — Project Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b12;
+    --surface:#131320;
+    --line: rgba(255,255,255,0.09);
+    --text:#e9e8f2;
+    --dim:#8f8ca0;
+    --accent:#8b7cf6;
+    --accent-dim: rgba(139,124,246,0.45);
+    --accent2:#39d0c4;
+    --accent2-dim: rgba(57,208,196,0.4);
+    box-sizing:border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *{box-sizing:inherit;}
+  html{scroll-behavior:smooth; scroll-padding-top: calc(64px + env(safe-area-inset-top,0px));}
+  body{
+    margin:0;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(139,124,246,0.16), transparent 60%),
+      radial-gradient(700px 400px at -10% 20%, rgba(57,208,196,0.10), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Space Grotesk', sans-serif;
+  }
+  a{color:inherit;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+
+  /* ---- Nav ---- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    padding: env(safe-area-inset-top,0px) 24px 0;
+    background: rgba(11,11,18,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1180px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 0; gap:16px;
+  }
+  .nav-name{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.08em; color:#ffffff;
+  }
+  .nav-links{
+    display:flex; gap:20px; overflow-x:auto; scrollbar-width:none;
+    font-family:'JetBrains Mono', monospace; font-size:11.5px;
+  }
+  .nav-links::-webkit-scrollbar{display:none;}
+  .nav-links a{
+    text-decoration:none; color:var(--dim); white-space:nowrap;
+    letter-spacing:0.03em; transition: color .15s;
+  }
+  .nav-links a:hover{ color:var(--accent2); }
+
+  /* ---- Hero ---- */
+  .hero{ max-width:1180px; margin:0 auto; padding: 90px 24px 56px; }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--accent2);
+    letter-spacing:0.08em; margin-bottom:22px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow .sep{ color:var(--dim); }
+  .hero h1{
+    font-size: clamp(48px, 9vw, 100px);
+    font-weight:700; line-height:0.96; margin:0 0 26px;
+    letter-spacing:-0.02em; color:#ffffff;
+  }
+  .hero-sub{
+    display:grid; grid-template-columns: 1fr auto; gap:44px; align-items:start;
+    padding-top:26px; border-top:1px solid var(--line);
+  }
+  .hero-sub p{
+    font-size:16.5px; color:var(--dim); max-width:600px; line-height:1.7; margin:0;
+    font-weight:400;
+  }
+  .hero-sub p strong{ color:var(--text); font-weight:600; }
+  .contact-block{ font-family:'JetBrains Mono', monospace; font-size:12px; text-align:right; }
+  .contact-block .heading{
+    color:var(--text); font-size:11.5px; letter-spacing:0.06em; margin-bottom:12px;
+    font-weight:600;
+  }
+  .contact-block .row{ color:var(--dim); margin-bottom:7px; }
+  .contact-block a{ color:var(--accent2); text-decoration:none; }
+  .contact-block a:hover{ text-decoration:underline; }
+  .contact-block .range{ color:var(--accent); margin-top:10px; }
+
+  /* ---- Filter bar ---- */
+  .filter-bar{
+    max-width:1180px; margin:0 auto; padding: 0 24px 40px;
+    display:flex; gap:10px; flex-wrap:wrap;
+  }
+  .filter-btn{
+    font-family:'JetBrains Mono', monospace; font-size:12px;
+    background:transparent; color:var(--dim);
+    border:1px solid var(--line); border-radius:999px;
+    padding:9px 18px; cursor:pointer;
+    transition: all .15s;
+  }
+  .filter-btn:hover{ color:var(--text); border-color:var(--accent-dim); }
+  .filter-btn.active{
+    color:var(--bg); background:var(--accent2); border-color:var(--accent2);
+    font-weight:600;
+  }
+  .filter-count{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--dim);
+    align-self:center; margin-left:4px;
+  }
+
+  /* ---- Section ---- */
+  .section{
+    max-width:1180px; margin:0 auto; padding: 8px 24px 44px;
+    border-top:1px solid var(--line);
+    padding-top:44px;
+  }
+  .section-head{ display:flex; align-items:baseline; gap:12px; margin-bottom:26px; }
+  .section-head h2{ font-size:24px; font-weight:600; margin:0; }
+  .section-head .cat-pill{
+    font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.05em;
+    color:var(--accent2); background:rgba(57,208,196,0.1);
+    border:1px solid var(--accent2-dim); border-radius:5px; padding:3px 9px;
+  }
+
+  /* ---- Project cards ---- */
+  .projects{ display:flex; flex-direction:column; gap:2px; }
+  .project{
+    display:grid; grid-template-columns: 120px 1fr; gap:22px;
+    padding:24px 0; border-top:1px solid var(--line);
+    transition: opacity .2s;
+  }
+  .project:first-of-type{ border-top:none; }
+  .project.hidden{ display:none; }
+  .project-meta{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim);
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .project-meta .date{ color:var(--accent); font-weight:600; font-size:12px; }
+  .project-body h3{ margin:0 0 10px; font-size:20px; font-weight:600; }
+  .project-body ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:7px; }
+  .project-body li{
+    font-size:14.5px; line-height:1.55; color:var(--dim); padding-left:16px; position:relative;
+  }
+  .project-body li::before{
+    content:"▸"; position:absolute; left:0; color:var(--accent2); font-size:12px; top:2px;
+  }
+  .stat{ color:var(--accent); font-weight:600; }
+  .project-links{ margin-top:12px; display:flex; gap:16px; flex-wrap:wrap; }
+  .project-links a{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--accent2);
+    text-decoration:none; border-bottom:1px dotted var(--accent2); padding-bottom:1px;
+  }
+  .project-links a:hover{ color:var(--accent); border-color:var(--accent); }
+
+  .future{
+    max-width:1180px; margin:0 auto; padding:40px 24px 90px;
+    display:flex; align-items:center; gap:14px;
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--dim);
+    border-top:1px solid var(--line);
+  }
+  .future .blip{
+    width:8px; height:8px; border-radius:50%; background:var(--accent);
+    box-shadow:0 0 8px var(--accent); flex-shrink:0;
+  }
+
+  footer{
+    text-align:center; padding:26px 20px calc(26px + env(safe-area-inset-bottom,0px));
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); opacity:0.6;
+  }
+
+  @media (max-width:640px){
+    .hero-sub{ grid-template-columns:1fr; }
+    .contact-block{ text-align:left; }
+    .project{ grid-template-columns:1fr; gap:8px; }
+    .project-meta{ flex-direction:row; gap:10px; align-items:baseline; }
+  }
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-name">SAHAJ PATEL</div>
+    <nav class="nav-links">
+      <a href="#coursework">Coursework</a>
+      <a href="#research">Research</a>
+      <a href="#internship">Internship</a>
+      <a href="#independent">Independent</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">PROJECT PORTFOLIO <span class="sep">/</span> GEORGIA INSTITUTE OF TECHNOLOGY <span class="sep">/</span> REV NOV 2025</div>
+  <h1>Sahaj Patel</h1>
+  <div class="hero-sub">
+    <p>
+      Since starting at Georgia Tech in <strong>August 2024</strong>, I've built my way through aerospace and materials science engineering one hands-on project at a time — from snap-fit CAD assemblies and a wooden glider in my first semester, to machining functional hardware on mills and lathes, running structural load tests on 3D-printed trusses, and designing a drone engine mount for a wildfire-response VIP team. That range carried into industry through a structures internship at <strong>Phoenix Air</strong>. What ties it together is a pull toward the physical side of engineering — I'm happiest when a design leaves the screen and becomes something I can hold, test, and break.
+    </p>
+    <div class="contact-block">
+      <div class="heading">Contact Information:</div>
+      <div class="row">678-800-8047</div>
+      <div class="row">sahajmpatel06@gmail.com</div>
+      <div class="row"><a href="https://www.linkedin.com/in/sahajpatel01/" target="_blank" rel="noopener">linkedin.com/in/sahajpatel01 ↗</a></div>
+      <div class="range">AUG 2024 — PRESENT</div>
+    </div>
+  </div>
+</section>
+
+<div class="filter-bar" id="filterBar">
+  <button class="filter-btn active" data-filter="all">All Projects</button>
+  <button class="filter-btn" data-filter="coursework">Coursework</button>
+  <button class="filter-btn" data-filter="research">Research</button>
+  <button class="filter-btn" data-filter="internship">Internship</button>
+  <button class="filter-btn" data-filter="independent">Independent</button>
+  <span class="filter-count" id="filterCount"></span>
+</div>
+
+<section class="section" id="coursework" data-cat="coursework">
+  <div class="section-head"><h2>Engineering Design — ME 1670</h2><span class="cat-pill">COURSEWORK</span></div>
+  <div class="projects">
+    <article class="project" data-cat="coursework">
+      <div class="project-meta"><span class="date">MAR 2025</span></div>
+      <div class="project-body">
+        <h3>Single-Propeller Plane</h3>
+        <ul>
+          <li>3 components compiled into 1 assembly — fuselage, wing, and propeller</li>
+          <li>Used locking mechanisms to connect parts: cantilever snap joint and axis-of-rotation snap joint</li>
+          <li>Considered tolerance to ensure proper fitting between mating parts</li>
+          <li>Experimented with wall thickness and fillets to improve manufacturing efficiency</li>
+          <li>Refined the design through iterative CAD passes to reach an optimal build</li>
+        </ul>
+        <div class="project-links"><a href="#" target="_blank" rel="noopener">Final Report ↗</a></div>
+      </div>
+    </article>
+    <article class="project" data-cat="coursework">
+      <div class="project-meta"><span class="date">APR 2025</span></div>
+      <div class="project-body">
+        <h3>Subnautica Sea Splicer</h3>
+        <ul>
+          <li>Group project of 5 members — 6 subassemblies compiled into 1 full assembly (cockpit, turbine, fins, bedroom, garage, car)</li>
+          <li>Responsible for the cockpit subassembly, made up of 5 components</li>
+          <li>Coordinated closely with teammates to lock in viable dimensions across subassemblies</li>
+          <li>Selected materials to achieve a realistic, functional design</li>
+          <li>Produced professional engineering drawings and assembly instructions</li>
+        </ul>
+        <div class="project-links">
+          <a href="#" target="_blank" rel="noopener">Final Report ↗</a>
+          <a href="#" target="_blank" rel="noopener">Presentation Slides ↗</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" data-cat="coursework">
+  <div class="section-head"><h2>Aerospace Intro — AE 1601</h2><span class="cat-pill">COURSEWORK</span></div>
+  <div class="projects">
+    <article class="project" data-cat="coursework">
+      <div class="project-meta"><span class="date">OCT 2024</span></div>
+      <div class="project-body">
+        <h3>Rocket Launch</h3>
+        <ul>
+          <li>Modeled launch trajectory in OpenRocket across a range of design parameters</li>
+          <li>Modified the starter kit to add a payload bay housing an altimeter</li>
+          <li>Iterated on mass, tube size, fin count, material, motor choice, and recovery method to hit a height target</li>
+          <li>Investigated how center of gravity and center of pressure shaped flight stability</li>
+          <li>Target vs. actual apogee: 125 ft vs. <span class="stat">94 ft</span> — placed top 10</li>
+        </ul>
+        <div class="project-links"><a href="#" target="_blank" rel="noopener">Final Report ↗</a></div>
+      </div>
+    </article>
+    <article class="project" data-cat="coursework">
+      <div class="project-meta"><span class="date">DEC 2024</span></div>
+      <div class="project-body">
+        <h3>Wooden Glider</h3>
+        <ul>
+          <li>Engineered and built a wooden glider, weighing aerodynamic, material, and adhesive choices</li>
+          <li>Ran design iterations aimed at maximizing glide distance</li>
+          <li>Added a mass component to improve flight stability</li>
+          <li>Experimented with angle of attack and aspect ratio</li>
+          <li>Used CAD and a laser cutter to precisely cut glider components</li>
+          <li>Target vs. actual distance: 25 ft vs. <span class="stat">79 ft</span> — placed 2nd</li>
+        </ul>
+        <div class="project-links"><a href="#" target="_blank" rel="noopener">Presentation Slides ↗</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" data-cat="coursework">
+  <div class="section-head"><h2>Statics — COE 2001</h2><span class="cat-pill">COURSEWORK</span></div>
+  <div class="projects">
+    <article class="project" data-cat="coursework">
+      <div class="project-meta"><span class="date">NOV 2025</span></div>
+      <div class="project-body">
+        <h3>Bridge Structural Optimization</h3>
+        <ul>
+          <li>Goal: design a bridge to withstand 10 lb of load using the least material possible</li>
+          <li>Researched truss types to find the best fit for the design requirements</li>
+          <li>Calculated force-balance reactions to identify members under greatest tension and compression</li>
+          <li>Tested PLA and PET-G print material to compare mass and breakage behavior</li>
+          <li>Maximum holding weight achieved: <span class="stat">125 lb</span></li>
+        </ul>
+        <div class="project-links"><a href="#" target="_blank" rel="noopener">Final Report ↗</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" data-cat="coursework">
+  <div class="section-head"><h2>Manufacturing — AE 2810</h2><span class="cat-pill">COURSEWORK</span></div>
+  <div class="projects">
+    <article class="project" data-cat="coursework">
+      <div class="project-meta"><span class="date">MAR 2026</span></div>
+      <div class="project-body">
+        <h3>GT Tabletop Figurine</h3>
+        <ul>
+          <li>Completed a three-step training project covering manufacturing fundamentals</li>
+          <li>Used mills, lathes, and waterjets to machine a GT figurine</li>
+          <li>Held close tolerances and precise measurements for proper fitting and assembly</li>
+          <li>Tapped threads for screws as a design feature</li>
+          <li>Built a stronger sense of how design decisions affect manufacturability</li>
+        </ul>
+      </div>
+    </article>
+    <article class="project" data-cat="coursework">
+      <div class="project-meta"><span class="date">MAY 2026</span></div>
+      <div class="project-body">
+        <h3>Space Station Module</h3>
+        <ul>
+          <li>Manufactured an individual project independently, applying previously taught machining skills</li>
+          <li>Used a mill and lathe to build the module; 3D printed an add-on flag</li>
+          <li>Held tight tolerances and precise measurements for fitting and assembly</li>
+          <li>Interconnected with 6 classmates' modules to form one functional space station</li>
+          <li>Designed the add-on flag to fit within the allowable space</li>
+        </ul>
+        <div class="project-links"><a href="#" target="_blank" rel="noopener">Presentation ↗</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="research" data-cat="research">
+  <div class="section-head"><h2>Better Place Drones — VIP</h2><span class="cat-pill">RESEARCH</span></div>
+  <div class="projects">
+    <article class="project" data-cat="research">
+      <div class="project-meta"><span class="date">OCT 2025</span></div>
+      <div class="project-body">
+        <h3>Drone Engine Mount</h3>
+        <ul>
+          <li>Worked on the Propulsion subteam, building toward the XPRIZE Wildfire Challenge using sponsored hardware</li>
+          <li>Designed a mount for an Aurelia X8 standard drone paired with a Cobra Aero A33N engine</li>
+          <li>Solved for precise measurements so the mount slides onto underheld rods and bolts into the platform</li>
+          <li>Optimized wall thickness to support engine weight efficiently without excess material</li>
+        </ul>
+        <div class="project-links"><a href="#" target="_blank" rel="noopener">Semesterly Report ↗</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="internship" data-cat="internship">
+  <div class="section-head"><h2>Phoenix Air Internship — Structures</h2><span class="cat-pill">INTERNSHIP</span></div>
+  <div class="projects">
+    <article class="project" data-cat="internship">
+      <div class="project-meta"><span class="date">2026</span></div>
+      <div class="project-body"><h3>Aircraft Modifications</h3><ul><li>Details to be added.</li></ul></div>
+    </article>
+    <article class="project" data-cat="internship">
+      <div class="project-meta"><span class="date">2026</span></div>
+      <div class="project-body"><h3>Component Modeling</h3><ul><li>Details to be added.</li></ul></div>
+    </article>
+    <article class="project" data-cat="internship">
+      <div class="project-meta"><span class="date">2026</span></div>
+      <div class="project-body"><h3>Corrosion Analysis</h3><ul><li>Details to be added.</li></ul></div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="independent" data-cat="independent">
+  <div class="section-head"><h2>MATLAB Coding</h2><span class="cat-pill">INDEPENDENT</span></div>
+  <div class="projects">
+    <article class="project" data-cat="independent">
+      <div class="project-meta"><span class="date">NOV 2025</span></div>
+      <div class="project-body">
+        <h3>Custom Grade Calculators</h3>
+        <ul>
+          <li>Wrote MATLAB scripts to calculate current grade and grade needed on remaining work</li>
+          <li>Built and ran test cases to confirm calculations were accurate</li>
+          <li>Handled extra credit and supplemental tasks that counted toward the overall grade</li>
+          <li>Supported weighted categories, dropped scores, and score caps</li>
+          <li>Debugged thoroughly to ensure validity, then shared with classmates for academic planning</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<div class="future"><span class="blip"></span> Future work: ANSYS integration</div>
+<footer>Sahaj Patel — Project Portfolio — Georgia Institute of Technology</footer>
+
+<script>
+  const btns = document.querySelectorAll('.filter-btn');
+  const sections = document.querySelectorAll('.section[data-cat]');
+  const countEl = document.getElementById('filterCount');
+
+  function applyFilter(cat){
+    let visibleProjects = 0;
+    sections.forEach(sec => {
+      const match = cat === 'all' || sec.getAttribute('data-cat') === cat;
+      sec.style.display = match ? '' : 'none';
+      if(match){
+        sec.querySelectorAll('.project').forEach(p => visibleProjects++);
+      }
+    });
+    countEl.textContent = visibleProjects + (visibleProjects === 1 ? ' project' : ' projects');
+  }
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter(btn.getAttribute('data-filter'));
+    });
+  });
+
+  applyFilter('all');
+</script>
+
+</body>
+</html>
